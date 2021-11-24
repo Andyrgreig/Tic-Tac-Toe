@@ -3,6 +3,7 @@ const gameData = {
   player1: "Player 1",
   player2: "Player 2",
   currentPlayer: "None",
+  turn: 0,
   win: [[0,1,2], [3,4,5], [6,7,8], [0,4,8], [2,4,6], [0,3,6], [1,4,7], [2,5,8]]
 }
 
@@ -34,9 +35,13 @@ const game = {
     if (gameData.currentPlayer == "1" && gameData.board[i] == "") {
       gameData.board[i] = "X"
       gameData.currentPlayer = "2";
+      game.turn++;
+      game.h2.innerHTML = `${gameData.player2}, IT'S YOUR MOVE!`;
     } else if (gameData.currentPlayer == "2" && gameData.board[i] == "") {
       gameData.board[i] = "O";
       gameData.currentPlayer = "1";
+      game.turn++;
+      game.h2.innerHTML = `${gameData.player1}, IT'S YOUR MOVE!`;
     }
     game.renderBoard(gameData.board);
     game.checkWin();
@@ -50,6 +55,7 @@ const game = {
     if (person) gameData.player2 = person.toUpperCase();
     game.overlay.style.visibility = "hidden";
     gameData.currentPlayer = "1";
+    game.turn = 0;
     game.h2.innerHTML = `${gameData.player1}, IT'S YOUR MOVE!`;
     game.h2.style.visibility = "visible";   
     gameData.board.fill(""); 
@@ -58,6 +64,10 @@ const game = {
 
 
   checkWin: function() {
+    if (game.turn === 9) {
+      game.overlay.style.visibility = "visible";
+      game.h2.innerHTML = "IT'S A DRAW!";
+    }
     for (let i = 0; i < gameData.win.length; i++) {
       const win = gameData.win;
       if (gameData.board[win[i][0]] == "X" && gameData.board[win[i][1]] == "X" && gameData.board[win[i][2]] == "X") {
