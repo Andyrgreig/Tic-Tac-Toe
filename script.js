@@ -44,9 +44,9 @@ const game = {
   
 
   playGame: function() {
-    let person = prompt(`Player 1, please enter your name:, ${gameData.player1}}`);
+    let person = prompt("Player 1, please enter your name:", `${gameData.player1}`);
     if (person) gameData.player1 = person.toUpperCase();
-    person = prompt(`Player 2, please enter your name:, ${gameData.player2}}`);
+    person = prompt("Player 2, please enter your name:", `${gameData.player2}`);
     if (person) gameData.player2 = person.toUpperCase();
     game.overlay.style.visibility = "hidden";
     gameData.currentPlayer = "1";
